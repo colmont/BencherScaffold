@@ -1,5 +1,5 @@
 import time
-from typing import Sequence, Optional
+from typing import Mapping, Sequence, Optional
 
 import grpc
 
@@ -38,6 +38,7 @@ class BencherClient:
             benchmark_name: str,
             point: Sequence[Value],
             random_seed: Optional[int] = None,
+            config: Optional[Mapping[str, str]] = None,
     ) -> EvaluationResult:
         """
         Evaluates a point in the benchmark space.
@@ -52,6 +53,8 @@ class BencherClient:
             random_seed: An optional seed to use for any stochasticity in the benchmark 
                 evaluation. If omitted, the benchmark is free to evaluate 
                 non-deterministically.
+            config: An optional mapping of benchmark-specific options, e.g.
+                {"num_rollouts": "1"}.
 
         Returns:
             The full EvaluationResult: one ObjectiveValue per objective the benchmark
@@ -83,6 +86,7 @@ class BencherClient:
                 values=point,
             ),
             random_seed=random_seed,
+            config=config,
         )
         for n_retry in range(self.max_retries):
             try:

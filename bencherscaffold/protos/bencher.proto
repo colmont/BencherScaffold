@@ -31,11 +31,13 @@ message Benchmark {
   string description = 3;
 }
 
-// a benchmark request contains a point and the name of the benchmark, and (optionally) a random seed
+// a benchmark request contains a point and the name of the benchmark, and (optionally)
+// a random seed and a map of benchmark-specific configuration options
 message BenchmarkRequest {
   Benchmark benchmark = 1;
   Point point = 2;
   optional uint32 random_seed = 3;
+  map<string, string> config = 4;
 }
 
 // a point is a list of doubles

@@ -58,14 +58,23 @@ class Benchmark(_message.Message):
     def __init__(self, name: _Optional[str] = ..., type: _Optional[_Union[BenchmarkType, str]] = ..., description: _Optional[str] = ...) -> None: ...
 
 class BenchmarkRequest(_message.Message):
-    __slots__ = ("benchmark", "point", "random_seed")
+    __slots__ = ("benchmark", "point", "random_seed", "config")
+    class ConfigEntry(_message.Message):
+        __slots__ = ("key", "value")
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: str
+        value: str
+        def __init__(self, key: _Optional[str] = ..., value: _Optional[str] = ...) -> None: ...
     BENCHMARK_FIELD_NUMBER: _ClassVar[int]
     POINT_FIELD_NUMBER: _ClassVar[int]
     RANDOM_SEED_FIELD_NUMBER: _ClassVar[int]
+    CONFIG_FIELD_NUMBER: _ClassVar[int]
     benchmark: Benchmark
     point: Point
     random_seed: int
-    def __init__(self, benchmark: _Optional[_Union[Benchmark, _Mapping]] = ..., point: _Optional[_Union[Point, _Mapping]] = ..., random_seed: _Optional[int] = ...) -> None: ...
+    config: _containers.ScalarMap[str, str]
+    def __init__(self, benchmark: _Optional[_Union[Benchmark, _Mapping]] = ..., point: _Optional[_Union[Point, _Mapping]] = ..., random_seed: _Optional[int] = ..., config: _Optional[_Mapping[str, str]] = ...) -> None: ...
 
 class Point(_message.Message):
     __slots__ = ("values",)
